@@ -1,0 +1,8 @@
+- hosts: ansible
+  user: sonlh98ba
+  become_method: sudo
+  gather_facts: True
+  vars_files:
+  - vars/front.yml
+  roles:
+  - nginx

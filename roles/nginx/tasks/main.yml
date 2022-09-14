@@ -1,0 +1,17 @@
+- name: NGINX --> Install the nginx packages for Ubuntu target
+  become: true
+  apt:
+    name: "nginx"
+    update-cache: yes
+
+- name: Check nginx status
+  shell: bash -lc "systemctl status nginx"
+  register: nginx_status
+- debug:
+    var: nginx_status.stdout_lines
+
+- name: NGINX --> Copy extra/sites configuration files
+  become: true
+  template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_conf_dir }}/nginx.conf"
